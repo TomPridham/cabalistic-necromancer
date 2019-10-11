@@ -10,7 +10,7 @@
       "dom",
       "es2017"
     ],
-    "module": "esnext",
+    "module": "es6",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
@@ -19,7 +19,9 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules"
