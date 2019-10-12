@@ -1,5 +1,8 @@
 import https from 'https'
 import Koa from 'koa'
+import path from 'path'
+import compress from 'koa-compress'
+import serve from 'koa-static'
 import Router from '@koa/router'
 
 const app = new Koa()
@@ -17,7 +20,7 @@ let thoughtPromise: Promise<Thought> | null
 router.get('/thought', async (ctx) => {
   try {
     if (!thoughtPromise) {
-      thoughtPromise = new Promise((resolve, reject) => {
+      thoughtPromise = new Promise((resolve) => {
         https.get('https://pdqweb.azurewebsites.net/api/brain', (res) => {
           let body = ''
           res.on('data', (chunk) => {
@@ -41,5 +44,7 @@ router.get('/thought', async (ctx) => {
   }
 })
 
+app.use(compress())
+app.use(serve(path.resolve(__dirname)))
 app.use(router.routes())
 app.listen(3000)

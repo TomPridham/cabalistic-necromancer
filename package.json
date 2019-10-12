@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "build": "webpack",
-    "build:server": "babel src/server -d dist/server --extensions .ts",
+    "build": "run-s build:*",
+    "build:app": "webpack",
+    "build:server": "babel src/server -d dist --extensions .ts",
     "start": "webpack-dev-server",
     "test": "run-s test:ts",
     "test:ts": "tsc --noEmit"
@@ -20,6 +21,8 @@
   "dependencies": {
     "@koa/router": "^8.0.2",
     "koa": "^2.8.2",
+    "koa-compress": "^3.0.0",
+    "koa-static": "^5.0.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router": "^5.1.2",
@@ -37,6 +40,8 @@
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.3.2",
     "@types/koa": "^2.0.50",
+    "@types/koa-compress": "^2.0.9",
+    "@types/koa-static": "^4.0.1",
     "@types/koa__router": "^8.0.0",
     "@types/react": "^16.9.5",
     "@types/react-dom": "^16.9.1",
