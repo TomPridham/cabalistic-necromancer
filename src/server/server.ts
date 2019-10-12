@@ -12,21 +12,27 @@ type Thought = {
   name: string
 }
 
+let thoughtPromise: Promise<Thought> | null
+
 router.get('/thought', async (ctx) => {
   try {
-    await new Promise((resolve, reject) => {
-      https.get('https://pdqweb.azurewebsites.net/api/brain', (res) => {
-        let body = ''
-        res.on('data', (chunk) => {
-          body += chunk
-        })
-        res.on('end', () => {
-          ctx.status = 200
-          ctx.body = body
-          resolve()
+    if (!thoughtPromise) {
+      thoughtPromise = new Promise((resolve, reject) => {
+        https.get('https://pdqweb.azurewebsites.net/api/brain', (res) => {
+          let body = ''
+          res.on('data', (chunk) => {
+            body += chunk
+          })
+          res.on('end', () => {
+            resolve(JSON.parse(body))
+            thoughtPromise = null
+          })
         })
       })
-    })
+    }
+    const body = await thoughtPromise
+    ctx.status = 200
+    ctx.body = body
     return ctx
   } catch (e) {
     ctx.body = e
