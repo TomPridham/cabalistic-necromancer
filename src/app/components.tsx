@@ -5,6 +5,19 @@ type SkullProps = {
   shouldLaugh: boolean
 }
 
+type AsyncButtonProps = {
+  clickHandler: () => Promise<void>
+  loading: boolean
+  loadingText: string
+}
+
+type ThoughtProps = {
+  currentBeer: string | undefined
+  currentThought: string | undefined
+  daydream: string | undefined
+  name: string | undefined
+}
+
 const laugh = () => keyframes`
   from {
     transform: translate&(0px);
@@ -53,11 +66,71 @@ export const Skull: React.FC<SkullProps> = ({ shouldLaugh = true }) => (
   </svg>
 )
 
-export const AsyncButton = styled.button`
+const Button = styled.button`
   text-align: center;
   vertical-align: center;
-  border: 1px solid ${({ theme }) => theme.dark};
+  border: 2px solid ${({ theme }) => theme.dark};
   border-radius: 4px;
   padding: 8px;
   font-size: 32px;
+
+  &:hover,
+  &:focus {
+    box-shadow: inset 0px 0px 2px ${({ theme }) => theme.dark};
+  }
+
+  &:active {
+    box-shadow: inset 0px 0px 8px ${({ theme }) => theme.dark};
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
 `
+
+export const AsyncButton: React.FC<AsyncButtonProps> = ({
+  children,
+  clickHandler,
+  loading,
+  loadingText,
+  ...props
+}) => {
+  const onMouseUpHandler = (e: React.MouseEvent) => {
+    console.log('hey')
+    if (e.target instanceof Element) {
+      e.target.blur()
+    }
+  }
+
+  return (
+    <Button {...props} onMouseUp={onMouseUpHandler} onClick={clickHandler}>
+      {!loading && children}
+      {loading && (
+        <>
+          <Skull shouldLaugh={loading} />
+          <span style={{ marginLeft: '8px' }}>{loadingText}</span>
+        </>
+      )}
+    </Button>
+  )
+}
+
+export const Thought: React.FC<ThoughtProps> = ({
+  currentBeer,
+  currentThought,
+  daydream,
+  name,
+}) => (
+  <>
+    <p>{currentThought}</p>
+    <p>{currentBeer}</p>
+
+    <img
+      src={`https://www.pdq.com/about-us/${name}`}
+      alt={`${name} portrait`}
+    />
+    <img src={daydream} alt={`${name}'s daydream'`} />
+  </>
+)
+
+export const ErrorComponent = () => <p>frick</p>

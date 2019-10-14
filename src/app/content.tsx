@@ -1,26 +1,49 @@
 import * as React from 'react'
 
-import { AsyncButton, Skull } from './components'
+import { AsyncButton, ErrorComponent, Thought } from './components'
 
 export const Content = () => {
-  const name = 'a'
-  const currentThought = 'whatever'
-  const daydream = 'some junk'
-  const currentBeer = 'yum'
+  const [currentBeer, setCurrentBeer] = React.useState<string>()
+  const [currentThought, setCurrentThought] = React.useState<string>()
+  const [daydream, setDaydream] = React.useState<string>()
+  const [error, setError] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [name, setName] = React.useState<string>()
+
+  const onClickHandler = async () => {
+    setLoading(true)
+    setError(false)
+    const res = await window.fetch('/thought')
+    if (res.ok) {
+      const thought = await res.json()
+      setCurrentBeer(thought.currentBeer)
+      setCurrentThought(thought.currentThought)
+      setDaydream(thought.daydream)
+      setName(thought.name)
+      setLoading(false)
+    } else {
+      setError(true)
+      setLoading(false)
+    }
+  }
   return (
     <div>
-      <p>{currentThought}</p>
-      <p>{currentBeer}</p>
+      {!error && (
+        <Thought
+          currentBeer={currentBeer}
+          currentThought={currentThought}
+          daydream={daydream}
+          name={name}
+        />
+      )}
+      {error && <ErrorComponent />}
 
-      <img
-        src={`https://www.pdq.com/about-us/${name}`}
-        alt={`${name} portrait`}
-      />
-      <img src={daydream} alt={`${name}'s daydream'`} />
-
-      <AsyncButton>
-        <Skull shouldLaugh={false} />
-        <span style={{ marginLeft: '8px' }}>Read some minds</span>
+      <AsyncButton
+        loading={loading}
+        loadingText="doing magic"
+        clickHandler={onClickHandler}
+      >
+        Read some minds
       </AsyncButton>
     </div>
   )
