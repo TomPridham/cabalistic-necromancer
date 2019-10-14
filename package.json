@@ -7,6 +7,7 @@
     "build:app": "webpack",
     "build:server": "babel src/server -d dist --extensions .ts",
     "start": "webpack-dev-server",
+    "start:server": "nodemon dist/server",
     "test": "run-s test:ts",
     "test:ts": "tsc --noEmit"
   },
