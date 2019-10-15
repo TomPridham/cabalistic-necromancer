@@ -8,34 +8,31 @@ import Router from '@koa/router'
 const app = new Koa()
 const router = new Router()
 
-type Thought = {
-  currentBeer: string
-  currentThought: string
-  daydream: string
-  name: string
-}
-
-let thoughtPromise: Promise<Thought> | null
+let thoughtPromise: Promise<string> | null
 
 router.get('/thought', async (ctx) => {
   try {
     if (!thoughtPromise) {
       thoughtPromise = new Promise((resolve) => {
-        https.get('https://pdqweb.azurewebsites.net/api/brain', (res) => {
-          let body = ''
-          res.on('data', (chunk) => {
-            body += chunk
+        https
+          .get('https://pdqweb.azurewebsites.net/api/brain', (res) => {
+            let body = ''
+            res.on('data', (chunk) => {
+              body += chunk
+            })
+            res.on('end', () => {
+              resolve(body)
+              thoughtPromise = null
+            })
           })
-          res.on('end', () => {
-            resolve(JSON.parse(body))
-            thoughtPromise = null
+          .on('error', (e) => {
+            console.log('what', e)
+            throw new Error('Another one down')
           })
-        })
       })
     }
-    const body = await thoughtPromise
     ctx.status = 200
-    ctx.body = body
+    ctx.body = JSON.parse(await thoughtPromise)
     return ctx
   } catch (e) {
     ctx.body = e
@@ -48,3 +45,4 @@ app.use(compress())
 app.use(serve(path.resolve(__dirname)))
 app.use(router.routes())
 app.listen(3000)
+console.log('server listening at 3000')
