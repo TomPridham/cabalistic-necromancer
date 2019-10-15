@@ -1,7 +1,18 @@
 import * as React from 'react'
+import { css } from 'styled-components'
 
-import { AsyncButton, ErrorComponent, Thought } from './components'
+import { AsyncButton, Empty, ErrorComponent, Thought } from './components'
 
+const styles = {
+  container: css`
+    max-width: 300px;
+    text-align: center;
+    padding-top: 16px;
+    & > * {
+      margin-bottom: 16px;
+    }
+  `,
+}
 export const Content = () => {
   const [currentBeer, setCurrentBeer] = React.useState<string>()
   const [currentThought, setCurrentThought] = React.useState<string>()
@@ -27,8 +38,8 @@ export const Content = () => {
     }
   }
   return (
-    <div>
-      {!error && (
+    <div css={styles.container}>
+      {!error && name && (
         <Thought
           currentBeer={currentBeer}
           currentThought={currentThought}
@@ -36,6 +47,7 @@ export const Content = () => {
           name={name}
         />
       )}
+      {!error && !name && <Empty />}
       {error && <ErrorComponent />}
 
       <AsyncButton

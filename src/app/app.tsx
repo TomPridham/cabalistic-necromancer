@@ -3,6 +3,13 @@ import styled from 'styled-components'
 
 import { Content } from './content'
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+`
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -17,13 +24,14 @@ const Header = styled.header`
 `
 
 const Footer = styled.footer`
-  position: absolute;
-  bottom: 0;
+  margin-top: auto;
+  padding: 8px;
+  background: ${({ theme }) => theme.accent};
 `
 
 export const App = () => {
   return (
-    <>
+    <Wrapper>
       <Header>Cabalistic Necromancer</Header>
       <Container>
         <Content />
@@ -43,6 +51,6 @@ export const App = () => {
           </a>
         </div>
       </Footer>
-    </>
+    </Wrapper>
   )
 }
