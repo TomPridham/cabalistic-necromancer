@@ -1,6 +1,8 @@
 import * as React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
+import { images } from './images'
+
 type SkullProps = {
   shouldLaugh: boolean
 }
@@ -15,7 +17,7 @@ type ThoughtProps = {
   currentBeer: string | undefined
   currentThought: string | undefined
   daydream: string | undefined
-  name: string | undefined
+  name: string
 }
 
 const laugh = () => keyframes`
@@ -171,13 +173,18 @@ export const Thought: React.FC<ThoughtProps> = ({
   name,
 }) => (
   <>
-    <p>{currentThought}</p>
-    <p>{currentBeer}</p>
+    {currentThought && (
+      <p>
+        {name} is currently thinking: "{currentThought}"
+      </p>
+    )}
+    {currentBeer && (
+      <p>
+        {name} is currently sipping {currentBeer}
+      </p>
+    )}
 
-    <img
-      src={`https://www.pdq.com/about-us/${name}`}
-      alt={`${name} portrait`}
-    />
+    <img src={images[name.toLowerCase()]} alt={`${name} portrait`} />
     <img src={daydream} alt={`${name}'s daydream'`} />
   </>
 )

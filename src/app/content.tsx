@@ -5,9 +5,12 @@ import { AsyncButton, Empty, ErrorComponent, Thought } from './components'
 
 const styles = {
   container: css`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     max-width: 300px;
-    text-align: center;
     padding-top: 16px;
+    text-align: center;
     & > * {
       margin-bottom: 16px;
     }
@@ -23,7 +26,6 @@ export const Content = () => {
 
   const onClickHandler = async () => {
     setLoading(true)
-    setError(false)
     const res = await window.fetch('/thought')
     if (res.ok) {
       const thought = await res.json()
@@ -32,6 +34,7 @@ export const Content = () => {
       setDaydream(thought.daydream)
       setName(thought.name)
       setLoading(false)
+      setError(false)
     } else {
       setError(true)
       setLoading(false)
