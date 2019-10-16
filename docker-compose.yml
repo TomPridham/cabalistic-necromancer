@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cabalistic-necromancer
+    container_name: cn
+    ports:
+      - 3000
