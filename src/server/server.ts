@@ -25,8 +25,7 @@ router.get('/thought', async (ctx) => {
               thoughtPromise = null
             })
           })
-          .on('error', (e) => {
-            console.log('what', e)
+          .on('error', () => {
             throw new Error('Another one down')
           })
       })
@@ -45,4 +44,5 @@ app.use(compress())
 app.use(serve(path.resolve(__dirname)))
 app.use(router.routes())
 app.listen(3000)
+// eslint-disable-next-line no-console
 console.log('server listening at 3000')

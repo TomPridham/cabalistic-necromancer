@@ -49,4 +49,4 @@ export const images = {
   stevenv: '//cdn.pdq.com/wp-content/uploads/2018/08/company_StevenV.png',
   victoria: '//cdn.pdq.com/wp-content/uploads/2018/08/company_VictoriaB.png',
   whitney: '//cdn.pdq.com/wp-content/uploads/2018/08/company_WhitneyS.png',
-}
+} as const

@@ -29,28 +29,26 @@ const Footer = styled.footer`
   background: ${({ theme }) => theme.accent};
 `
 
-export const App = () => {
-  return (
-    <Wrapper>
-      <Header>Cabalistic Necromancer</Header>
-      <Container>
-        <Content />
-      </Container>
-      <Footer>
-        <div>
-          Icons made by{' '}
-          <a
-            href="https://www.flaticon.com/authors/payungkead"
-            title="Payungkead"
-          >
-            Payungkead
-          </a>{' '}
-          from{' '}
-          <a href="https://www.flaticon.com/" title="Flaticon">
-            www.flaticon.com
-          </a>
-        </div>
-      </Footer>
-    </Wrapper>
-  )
-}
+export const App = () => (
+  <Wrapper>
+    <Header>Cabalistic Necromancer</Header>
+    <Container>
+      <Content />
+    </Container>
+    <Footer>
+      <div>
+        Icons made by{' '}
+        <a
+          href="https://www.flaticon.com/authors/payungkead"
+          title="Payungkead"
+        >
+          Payungkead
+        </a>{' '}
+        from{' '}
+        <a href="https://www.flaticon.com/" title="Flaticon">
+          www.flaticon.com
+        </a>
+      </div>
+    </Footer>
+  </Wrapper>
+)

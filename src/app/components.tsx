@@ -143,7 +143,7 @@ export const AsyncButton: React.FC<AsyncButtonProps> = ({
   ...props
 }) => {
   const onMouseUpHandler = (e: React.MouseEvent) => {
-    if (e.target instanceof Element) {
+    if (e.target instanceof HTMLElement) {
       e.target.blur()
     }
   }
@@ -184,7 +184,10 @@ export const Thought: React.FC<ThoughtProps> = ({
       </p>
     )}
 
-    <img src={images[name.toLowerCase()]} alt={`${name} portrait`} />
+    <img
+      src={images[name.toLowerCase() as keyof typeof images]}
+      alt={`${name} portrait`}
+    />
     <img src={daydream} alt={`${name}'s daydream'`} />
   </>
 )

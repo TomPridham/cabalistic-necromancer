@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "warnOnUnsupportedTypeScriptVersion": false
+  },
+  "extends": [
+    "plugin:jane/recommended",
+    "plugin:jane/typescript",
+    "plugin:jane/prettier-ts",
+    "plugin:jane/react",
+    "plugin:jane/node",
+    "plugin:jane/jest"
+  ],
+  "plugins": [
+    "jane"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "node": {
+      "tryExtensions": [
+        ".js",
+        ".ts",
+        ".tsx",
+        ".json"
+      ]
+    }
+  },
+  "rules": {
+    "react/prop-types": "off"
+  }
+}
