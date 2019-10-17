@@ -1,9 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/app/index.tsx',
 
   output: {
@@ -13,6 +16,9 @@ module.exports = {
 
   plugins: [
     new webpack.ProgressPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+    }),
     new HtmlWebpackPlugin({
       template: './src/app/layout.html',
     }),
@@ -38,6 +44,7 @@ module.exports = {
   },
 
   optimization: {
+    minimizer: [new UglifyJsPlugin()],
     splitChunks: {
       cacheGroups: {
         vendors: {
@@ -52,12 +59,18 @@ module.exports = {
       name: true,
     },
   },
+  node: false,
 
   devServer: {
     open: true,
   },
 
   resolve: {
+    alias: {
+      react: 'preact/compat',
+      'react-dom/test-utils': 'preact/test-utils',
+      'react-dom': 'preact/compat',
+    },
     extensions: ['.tsx', '.ts', '.js'],
   },
 }

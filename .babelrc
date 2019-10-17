@@ -4,6 +4,10 @@
     "babel-plugin-styled-components",
     "@babel/proposal-class-properties",
     "@babel/proposal-object-rest-spread",
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    ["@babel/plugin-transform-react-jsx", {
+      "pragma": "h",
+      "pragmaFrag": "Fragment",
+    }]
   ]
 }
