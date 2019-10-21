@@ -1,13 +1,4 @@
 {
-  "presets": ["@babel/env", "@babel/typescript", "@babel/react"],
-  "plugins": [
-    "babel-plugin-styled-components",
-    "@babel/proposal-class-properties",
-    "@babel/proposal-object-rest-spread",
-    "@babel/plugin-transform-runtime",
-    ["@babel/plugin-transform-react-jsx", {
-      "pragma": "h",
-      "pragmaFrag": "Fragment",
-    }]
-  ]
+  "presets": ["@babel/typescript"],
+  "plugins":["@babel/plugin-transform-modules-commonjs"]
 }

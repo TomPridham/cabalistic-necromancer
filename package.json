@@ -1,7 +1,7 @@
 {
   "name": "cabalistic-necromancer",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "run-s clean build:*",
     "build:app": "webpack",
@@ -26,15 +26,16 @@
     "koa": "2.10.0",
     "koa-compress": "3.0.0",
     "koa-static": "5.0.0",
-    "preact": "^10.0.0",
+    "preact": "10.0.0",
     "styled-components": "4.4.0"
   },
   "devDependencies": {
     "@babel/cli": "7.6.4",
     "@babel/core": "7.6.4",
-    "@babel/plugin-proposal-class-properties": "7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "7.6.2",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/plugin-transform-react-constant-elements": "^7.6.3",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
     "@babel/plugin-transform-runtime": "7.6.2",
     "@babel/preset-env": "7.6.3",
     "@babel/preset-react": "7.6.3",
@@ -61,9 +62,9 @@
     "prettier": "1.18.2",
     "sortpack": "2.0.1",
     "typescript": "3.6.4",
-    "uglifyjs-webpack-plugin": "^2.2.0",
+    "uglifyjs-webpack-plugin": "2.2.0",
     "webpack": "4.41.2",
-    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-bundle-analyzer": "3.6.0",
     "webpack-cli": "3.3.9",
     "webpack-dev-server": "3.8.2"
   },

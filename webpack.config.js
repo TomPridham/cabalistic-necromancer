@@ -5,6 +5,28 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const babelConfig = {
+  babelrc: false,
+  presets: [
+    '@babel/preset-env',
+    '@babel/preset-typescript',
+    '@babel/preset-react',
+  ],
+  plugins: [
+    'babel-plugin-styled-components',
+    '@babel/plugin-proposal-object-rest-spread',
+    '@babel/plugin-transform-regenerator',
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        helpers: false,
+        regenerator: true,
+      },
+    ],
+    '@babel/plugin-transform-react-constant-elements',
+  ],
+}
+
 module.exports = {
   mode: 'production',
   entry: './src/app/index.tsx',
@@ -29,6 +51,7 @@ module.exports = {
       {
         test: /.(ts|tsx)?$/,
         loader: 'babel-loader',
+        options: babelConfig,
         include: [path.resolve(__dirname, 'src/app')],
         exclude: [/node_modules/],
       },

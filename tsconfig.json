@@ -11,7 +11,7 @@
       "dom",
       "es2017"
     ],
-    "module": "es6",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
