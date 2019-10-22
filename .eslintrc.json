@@ -10,23 +10,26 @@
     "plugin:jane/typescript",
     "plugin:jane/prettier-ts",
     "plugin:jane/react",
-    "plugin:jane/node",
-    "plugin:jane/jest"
+    "plugin:jane/node"
   ],
   "plugins": [
     "jane"
   ],
   "settings": {
-    "react": {
-      "version": "detect"
-    },
     "node": {
+      "allowModules":[
+        "react",
+        "react-dom"
+      ],
       "tryExtensions": [
         ".js",
         ".ts",
         ".tsx",
         ".json"
       ]
+    },
+    "react": {
+      "version": "16.9.0"
     }
   },
   "rules": {
