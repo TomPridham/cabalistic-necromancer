@@ -188,7 +188,7 @@ export const Thought: React.FC<ThoughtProps> = ({
       src={images[name.toLowerCase() as keyof typeof images]}
       alt={`${name} portrait`}
     />
-    <img src={daydream} alt={`${name}'s daydream'`} />
+    <img src={daydream} alt={`${name}'s daydream`} />
   </>
 )
 
