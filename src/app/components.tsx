@@ -166,13 +166,24 @@ export const AsyncButton: React.FC<AsyncButtonProps> = ({
   )
 }
 
+const thoughtStyles = css`
+  img {
+    height: 140px;
+    width: 140px;
+    padding: 5px;
+  }
+  & > div {
+    display: flex;
+  }
+`
+
 export const Thought: React.FC<ThoughtProps> = ({
   currentBeer,
   currentThought,
   daydream,
   name,
 }) => (
-  <>
+  <div css={thoughtStyles}>
     {currentThought && (
       <p>
         {name} is currently thinking: "{currentThought}"
@@ -184,12 +195,14 @@ export const Thought: React.FC<ThoughtProps> = ({
       </p>
     )}
 
-    <img
-      src={images[name.toLowerCase() as keyof typeof images]}
-      alt={`${name} portrait`}
-    />
-    <img src={daydream} alt={`${name}'s daydream`} />
-  </>
+    <div style={{ display: 'flex' }}>
+      <img
+        src={images[name.toLowerCase() as keyof typeof images]}
+        alt={`${name} portrait`}
+      />
+      <img src={daydream} alt={`${name}'s daydream`} />
+    </div>
+  </div>
 )
 
 export const ErrorComponent = () => (

@@ -6,7 +6,7 @@
     "build": "run-s clean build:*",
     "build:app": "webpack",
     "build:server": "babel src/server -d dist --extensions .ts",
-    "clean": "rm -r dist",
+    "clean": "mkdir dist -p; rm -r dist",
     "start": "webpack-dev-server",
     "start:server": "nodemon dist/server",
     "test": "run-s test:*",
