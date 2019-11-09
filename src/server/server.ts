@@ -13,6 +13,7 @@ const router = new Router()
 
 const requestCompletedEvent = 'request_completed'
 const emitter = new EventEmitter()
+let tries: number = 0
 const pendingRequests: Array<
   [(body: string) => void, (error: string) => void]
 > = []
@@ -35,18 +36,13 @@ router.get('/thought', async (ctx) => {
   }
 })
 
-app.use(compress())
-app.use(serve(path.resolve(__dirname)))
-app.use(router.routes())
-app.listen(3000)
-// eslint-disable-next-line no-console
-console.log('server listening at 3000')
-
 emitter.on(requestCompletedEvent, async () => {
   if (!pendingRequests.length) {
+    tries = 0
     return
   }
   try {
+    tries += 1
     const body: string = await new Promise((resolve) => {
       https.get('https://pdqweb.azurewebsites.net/api/brain', (res) => {
         let body = ''
@@ -62,15 +58,28 @@ emitter.on(requestCompletedEvent, async () => {
         })
       })
     })
+
+    tries = 0
     const [res] = pendingRequests.shift() || []
     if (res) {
       res(body)
       emitter.emit(requestCompletedEvent)
     }
   } catch (e) {
+    if (tries < 2) {
+      emitter.emit(requestCompletedEvent)
+      return
+    }
     const [_, rej] = pendingRequests.shift() || []
     if (rej) {
       rej(e)
     }
   }
 })
+
+app.use(compress())
+app.use(serve(path.resolve(__dirname)))
+app.use(router.routes())
+app.listen(3000)
+// eslint-disable-next-line no-console
+console.log('server listening at 3000')
