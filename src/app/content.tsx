@@ -2,7 +2,13 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import { Thought as ThoughtType } from '../types'
-import { AsyncButton, Empty, ErrorComponent, Thought } from './components'
+import { AsyncButton } from './button'
+import { ErrorComponent } from './error'
+import { Thought } from './thought'
+
+export const Empty = () => (
+  <p>Thoughts are waiting for you to click that button.</p>
+)
 
 const Container = styled.div`
   align-items: center;
