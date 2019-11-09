@@ -1,21 +1,21 @@
 import * as React from 'react'
-import { css } from 'styled-components'
+import styled from 'styled-components'
 
+import { Thought as ThoughtType } from '../types'
 import { AsyncButton, Empty, ErrorComponent, Thought } from './components'
 
-const styles = {
-  container: css`
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-    padding-top: 16px;
-    text-align: center;
-    & > * {
-      margin-bottom: 16px;
-    }
-  `,
-}
+const Container = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  padding-top: 16px;
+  text-align: center;
+  & > * {
+    margin-bottom: 16px;
+  }
+`
+
 export const Content = () => {
   const [currentBeer, setCurrentBeer] = React.useState<string>()
   const [currentThought, setCurrentThought] = React.useState<string>()
@@ -26,22 +26,25 @@ export const Content = () => {
 
   const onClickHandler = async () => {
     setLoading(true)
-    const res = await window.fetch('/thought')
-    if (res.ok) {
-      const thought = await res.json()
-      setCurrentBeer(thought.currentBeer)
-      setCurrentThought(thought.currentThought)
-      setDaydream(thought.daydream)
-      setName(thought.name)
-      setLoading(false)
-      setError(false)
-    } else {
+    try {
+      const res = await window.fetch('/thought')
+      if (res.ok) {
+        const thought: ThoughtType = await res.json()
+        setCurrentBeer(thought.currentBeer)
+        setCurrentThought(thought.currentThought)
+        setDaydream(thought.daydream)
+        setName(thought.name)
+        setError(false)
+      } else {
+        setError(true)
+      }
+    } catch (e) {
       setError(true)
-      setLoading(false)
     }
+    setLoading(false)
   }
   return (
-    <div css={styles.container}>
+    <Container>
       {!error && name && (
         <Thought
           currentBeer={currentBeer}
@@ -60,6 +63,6 @@ export const Content = () => {
       >
         Read some minds
       </AsyncButton>
-    </div>
+    </Container>
   )
 }

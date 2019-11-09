@@ -114,6 +114,7 @@ const Button = styled.button`
   padding: 8px;
   font-size: 32px;
   width: 100%;
+  white-space: nowrap;
 
   &:hover,
   &:focus {
