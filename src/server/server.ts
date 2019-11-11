@@ -37,7 +37,7 @@ router.get('/thought', async (ctx) => {
 })
 
 const makeRequest = (): Promise<string> =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     https.get('https://pdqweb.azurewebsites.net/api/brain', (res) => {
       let body = ''
 
@@ -46,9 +46,10 @@ const makeRequest = (): Promise<string> =>
       })
       res.on('end', () => {
         if (res.statusCode !== 200) {
-          throw new Error(body)
+          reject(body)
+        } else {
+          resolve(body)
         }
-        resolve(body)
       })
     })
   })

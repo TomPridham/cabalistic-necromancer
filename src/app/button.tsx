@@ -16,6 +16,7 @@ const Button = styled.button`
   border-radius: 4px;
   padding: 8px;
   font-size: 32px;
+  max-height: 68px;
   width: 100%;
   white-space: nowrap;
 

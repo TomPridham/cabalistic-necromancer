@@ -15,6 +15,7 @@ const ThoughtContainer = styled.div`
     height: 140px;
     width: 140px;
     padding: 5px;
+    object-fit: cover;
   }
   & > div {
     display: flex;
@@ -33,11 +34,13 @@ export const Thought: React.FC<ThoughtProps> = ({
         {name} is currently thinking: "{currentThought}"
       </p>
     )}
+    <br />
     {currentBeer && (
       <p>
         {name} is currently sipping {currentBeer}
       </p>
     )}
+    <br />
 
     <div style={{ display: 'flex' }}>
       <img
